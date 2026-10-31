@@ -1,0 +1,77 @@
+/* EventCard styling - white card with colored left border */
+.event-card {
+  background: #ffffff;
+  border: 1px solid rgba(0, 0, 0, 0.06);
+  border-radius: 14px;
+  padding: 22px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  transition: transform 0.2s, box-shadow 0.2s;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Colored top border accent */
+.event-card::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+}
+
+.event-card.border-technical::before {
+  background: linear-gradient(90deg, #6366f1, #818cf8);
+}
+
+.event-card.border-cultural::before {
+  background: linear-gradient(90deg, #ec4899, #f472b6);
+}
+
+.event-card.border-sports::before {
+  background: linear-gradient(90deg, #10b981, #34d399);
+}
+
+.event-card.border-workshop::before {
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+}
+
+.event-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
+}
+
+.event-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 12px;
+  gap: 8px;
+}
+
+.event-card-name {
+  margin: 0;
+  color: #1e293b;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+.event-card-detail {
+  margin: 4px 0;
+  font-size: 0.87rem;
+  color: #64748b;
+}
+
+.event-card-description {
+  margin: 12px 0 18px 0;
+  color: #475569;
+  font-size: 0.9rem;
+  line-height: 1.55;
+  flex-grow: 1;
+}
+
+.event-card-btn {
+  align-self: flex-start;
+}

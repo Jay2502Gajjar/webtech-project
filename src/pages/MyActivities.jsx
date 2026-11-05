@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
 
-// MyActivities page - shows registered events and joined clubs with cancel option
 function MyActivities() {
   const [registeredEvents, setRegisteredEvents] = useState([]);
   const [joinedClubs, setJoinedClubs] = useState([]);
 
-  // Load registered events and joined clubs from localStorage
   useEffect(() => {
     const savedRegistered = JSON.parse(localStorage.getItem("registeredEvents")) || [];
     const savedJoined = JSON.parse(localStorage.getItem("joinedClubs")) || [];
@@ -13,17 +11,20 @@ function MyActivities() {
     setJoinedClubs(savedJoined);
   }, []);
 
-  // Cancel event registration
   function handleCancelEvent(eventId) {
-    // filter() creates a new array excluding the cancelled event
+    if (!confirm("Are you sure you want to cancel this registration?")) {
+      return;
+    }
     const updated = registeredEvents.filter((event) => event.id !== eventId);
     setRegisteredEvents(updated);
     localStorage.setItem("registeredEvents", JSON.stringify(updated));
-    alert("Registration cancelled.");
+    alert("Event registration cancelled.");
   }
 
-  // Leave a club
   function handleLeaveClub(clubId) {
+    if (!confirm("Are you sure you want to leave this club?")) {
+      return;
+    }
     const updated = joinedClubs.filter((club) => club.id !== clubId);
     setJoinedClubs(updated);
     localStorage.setItem("joinedClubs", JSON.stringify(updated));
@@ -33,16 +34,15 @@ function MyActivities() {
   return (
     <div className="page-container">
       <div className="page-header">
-        <h2>📋 My Activities</h2>
-        <p>Manage your event registrations and club memberships</p>
+        <h2>My Activities & Registrations</h2>
+        <p>Manage your enrolled event tickets and active club memberships</p>
       </div>
 
-      {/* Registered Events */}
       <section className="section-box">
-        <h3>🎫 Registered Events ({registeredEvents.length})</h3>
+        <h3>My Registered Events ({registeredEvents.length})</h3>
         {registeredEvents.length === 0 ? (
           <div className="empty-state">
-            <p>You have not registered for any events yet.</p>
+            <p>You have not registered for any events yet. Check the Events tab to register.</p>
           </div>
         ) : (
           <ul className="activity-list">
@@ -50,13 +50,14 @@ function MyActivities() {
               <li key={event.id} className="activity-item">
                 <div>
                   <strong>{event.name}</strong>
-                  <span className="activity-detail"> — {event.date} at {event.venue}</span>
+                  <span className="activity-detail"> — {event.date} at {event.venue} ({event.category})</span>
                 </div>
                 <button
+                  type="button"
                   className="cancel-btn"
                   onClick={() => handleCancelEvent(event.id)}
                 >
-                  Cancel
+                  Cancel Registration
                 </button>
               </li>
             ))}
@@ -64,12 +65,11 @@ function MyActivities() {
         )}
       </section>
 
-      {/* Joined Clubs */}
       <section className="section-box">
-        <h3>🏛️ Joined Clubs ({joinedClubs.length})</h3>
+        <h3>My Enrolled Clubs ({joinedClubs.length})</h3>
         {joinedClubs.length === 0 ? (
           <div className="empty-state">
-            <p>You have not joined any clubs yet.</p>
+            <p>You have not joined any clubs yet. Visit the Clubs page to explore communities.</p>
           </div>
         ) : (
           <ul className="activity-list">
@@ -77,12 +77,14 @@ function MyActivities() {
               <li key={club.id} className="activity-item">
                 <div>
                   <strong>{club.name}</strong>
+                  <span className="activity-detail"> — {club.description}</span>
                 </div>
                 <button
+                  type="button"
                   className="cancel-btn"
                   onClick={() => handleLeaveClub(club.id)}
                 >
-                  Leave
+                  Leave Club
                 </button>
               </li>
             ))}

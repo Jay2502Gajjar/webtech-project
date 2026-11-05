@@ -1,80 +1,86 @@
 import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
 import "./Landing.css";
 
-// Landing page - the first page visitors see with animated hero section
 function Landing() {
-  const { theme, toggleTheme } = useContext(ThemeContext);
-
   return (
-    <div className="landing-page">
-      {/* Animated floating shapes in the background (CSS only) */}
-      <div className="landing-bg">
-        <div className="shape shape-1"></div>
-        <div className="shape shape-2"></div>
-        <div className="shape shape-3"></div>
-        <div className="shape shape-4"></div>
-        <div className="shape shape-5"></div>
-      </div>
-
-      {/* Theme toggle button */}
-      <button className="landing-theme-btn" onClick={toggleTheme}>
-        {theme === "light" ? "🌙" : "☀️"}
-      </button>
-
-      {/* Hero Section */}
-      <section className="hero">
-        <div className="hero-content fade-in">
-          <span className="hero-badge">🎓 Welcome to</span>
-          <h1 className="hero-title">
-            Campus<span className="gradient-text">Connect</span>
-          </h1>
-          <p className="hero-subtitle">
-            Your all-in-one portal for college events, clubs, and student communities.
-            Stay connected, stay involved.
-          </p>
-          <div className="hero-buttons">
-            <Link to="/login" className="hero-btn hero-btn-primary">
-              Get Started →
-            </Link>
-            <Link to="/login" className="hero-btn hero-btn-secondary">
-              Login
-            </Link>
+    <div className="landing-wrapper">
+      <header className="landing-nav">
+        <div className="landing-nav-inner">
+          <div className="landing-logo">
+            <span className="logo-main">CampusConnect</span>
+            <span className="logo-sub">College Portal</span>
+          </div>
+          <div className="landing-nav-actions">
+            <Link to="/events" className="nav-btn-link">Events</Link>
+            <Link to="/clubs" className="nav-btn-link">Clubs</Link>
+            <Link to="/login" className="nav-btn-primary">Student Login</Link>
           </div>
         </div>
-      </section>
+      </header>
 
-      {/* Features Section */}
-      <section className="features-section fade-in-delay">
-        <h2 className="features-title">What you can do</h2>
-        <div className="features-grid">
-          <div className="feature-card">
-            <div className="feature-icon">🎪</div>
-            <h3>Discover Events</h3>
-            <p>Browse and register for college events — tech fests, cultural nights, workshops and more.</p>
+      <main className="landing-main">
+        <section className="landing-hero">
+          <div className="hero-text-block">
+            <span className="hero-kicker">Web Technology Project</span>
+            <h1 className="hero-heading">College Event & Activity Management Portal</h1>
+            <p className="hero-desc">
+              A centralized web platform for students to explore campus events, join departmental
+              clubs, register for competitions, and manage student activities.
+            </p>
+            <div className="hero-cta-group">
+              <Link to="/login" className="cta-btn primary-cta">Get Started / Login</Link>
+              <Link to="/events" className="cta-btn secondary-cta">Browse Events</Link>
+            </div>
           </div>
-          <div className="feature-card">
-            <div className="feature-icon">🏛️</div>
-            <h3>Join Clubs</h3>
-            <p>Find student communities that match your interests and connect with like-minded peers.</p>
-          </div>
-          <div className="feature-card">
-            <div className="feature-icon">📋</div>
-            <h3>Track Activities</h3>
-            <p>Manage your registrations, view upcoming events, and stay on top of your schedule.</p>
-          </div>
-          <div className="feature-card">
-            <div className="feature-icon">⚙️</div>
-            <h3>Admin Panel</h3>
-            <p>Easily add, edit and manage events. Keep the community updated with the latest info.</p>
-          </div>
-        </div>
-      </section>
+        </section>
 
-      {/* Footer */}
+        <section className="landing-features">
+          <h2 className="section-title">Key System Features</h2>
+          <div className="feature-grid">
+            <div className="feature-item">
+              <h3 className="feature-heading">Event Registration</h3>
+              <p className="feature-text">
+                Browse college events across technical, cultural, sports, and workshop categories with search and category filtering.
+              </p>
+            </div>
+
+            <div className="feature-item">
+              <h3 className="feature-heading">Club Directory</h3>
+              <p className="feature-text">
+                Explore student organizations like Coding Club, Robotics, Music, and Sports societies and register as a member.
+              </p>
+            </div>
+
+            <div className="feature-item">
+              <h3 className="feature-heading">Student Dashboard</h3>
+              <p className="feature-text">
+                Access a personalized dashboard displaying upcoming campus schedules, announcements, and activity counts.
+              </p>
+            </div>
+
+            <div className="feature-item">
+              <h3 className="feature-heading">Admin Operations</h3>
+              <p className="feature-text">
+                Manage campus events with complete create, read, update, and delete (CRUD) operations stored in browser storage.
+              </p>
+            </div>
+          </div>
+        </section>
+
+        <section className="landing-tech-stack">
+          <h2 className="section-title">Project Details</h2>
+          <div className="tech-box">
+            <p><strong>Course:</strong> Web Technology</p>
+            <p><strong>Architecture:</strong> Single Page Application (SPA)</p>
+            <p><strong>Frontend:</strong> React, React Router, HTML5, CSS3</p>
+            <p><strong>Client Storage:</strong> LocalStorage API for events, user session, and registrations</p>
+          </div>
+        </section>
+      </main>
+
       <footer className="landing-footer">
-        <p>CampusConnect © 2026 — Built with React for Web Technology Project</p>
+        <p>CampusConnect — College Event Management System</p>
+        <p className="footer-sub">Web Technology Semester Project</p>
       </footer>
     </div>
   );

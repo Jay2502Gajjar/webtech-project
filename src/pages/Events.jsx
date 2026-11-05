@@ -1,14 +1,12 @@
 import { useState, useEffect } from "react";
 import EventCard from "../components/EventCard";
 
-// Events page - displays all events with search and filter
 function Events() {
   const [events, setEvents] = useState([]);
   const [registeredEvents, setRegisteredEvents] = useState([]);
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("All");
 
-  // Load events and registered events from localStorage
   useEffect(() => {
     const savedEvents = JSON.parse(localStorage.getItem("events")) || [];
     const savedRegistered = JSON.parse(localStorage.getItem("registeredEvents")) || [];
@@ -16,65 +14,48 @@ function Events() {
     setRegisteredEvents(savedRegistered);
   }, []);
 
-  // Handle event registration
   function handleRegister(event) {
-    // Check if already registered (prevent duplicate registration)
     const alreadyRegistered = registeredEvents.some((e) => e.id === event.id);
     if (alreadyRegistered) {
-      alert("You are already registered for this event!");
+      alert("You have already registered for this event.");
       return;
     }
 
-    // Add event to registered list
-    const updatedRegistered = [...registeredEvents, event];
-    setRegisteredEvents(updatedRegistered);
-    // JSON.stringify() converts a JavaScript array/object into a JSON string for storage
-    localStorage.setItem("registeredEvents", JSON.stringify(updatedRegistered));
-    alert("Successfully registered for " + event.name + "!");
+    const updated = [...registeredEvents, event];
+    setRegisteredEvents(updated);
+    localStorage.setItem("registeredEvents", JSON.stringify(updated));
+    alert(`Successfully registered for ${event.name}!`);
   }
 
-  // Check if an event is already registered
   function isRegistered(eventId) {
     return registeredEvents.some((e) => e.id === eventId);
   }
 
-  // Get unique categories from events for the filter dropdown
   const categories = ["All"];
-  for (let i = 0; i < events.length; i++) {
-    if (!categories.includes(events[i].category)) {
-      categories.push(events[i].category);
+  events.forEach((item) => {
+    if (item.category && !categories.includes(item.category)) {
+      categories.push(item.category);
     }
-  }
+  });
 
-  // Filter events by search term and category
-  let filteredEvents = events;
-
-  // Filter by search term (case-insensitive)
-  if (searchTerm !== "") {
-    filteredEvents = filteredEvents.filter((event) =>
-      event.name.toLowerCase().includes(searchTerm.toLowerCase())
-    );
-  }
-
-  // Filter by selected category
-  if (selectedCategory !== "All") {
-    filteredEvents = filteredEvents.filter(
-      (event) => event.category === selectedCategory
-    );
-  }
+  const filteredEvents = events.filter((ev) => {
+    const matchesSearch = ev.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                          ev.venue.toLowerCase().includes(searchTerm.toLowerCase());
+    const matchesCategory = selectedCategory === "All" || ev.category === selectedCategory;
+    return matchesSearch && matchesCategory;
+  });
 
   return (
     <div className="page-container">
       <div className="page-header">
-        <h2>🎪 College Events</h2>
-        <p>Browse and register for upcoming events</p>
+        <h2>College Events</h2>
+        <p>Explore and register for upcoming technical and extracurricular activities</p>
       </div>
 
-      {/* Search and filter controls */}
       <div className="controls">
         <input
           type="text"
-          placeholder="🔍 Search events by name..."
+          placeholder="Search by event name or venue..."
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="search-input"
@@ -86,15 +67,14 @@ function Events() {
           className="filter-select"
         >
           {categories.map((cat) => (
-            <option key={cat} value={cat}>{cat}</option>
+            <option key={cat} value={cat}>Category: {cat}</option>
           ))}
         </select>
       </div>
 
-      {/* Display filtered events */}
       {filteredEvents.length === 0 ? (
         <div className="empty-state">
-          <p>No events found.</p>
+          <p>No events match your current search criteria.</p>
         </div>
       ) : (
         <div className="events-grid">
@@ -102,7 +82,7 @@ function Events() {
             <EventCard
               key={event.id}
               event={event}
-              actionLabel={isRegistered(event.id) ? "✓ Registered" : "Register"}
+              actionLabel={isRegistered(event.id) ? "Already Registered" : "Register Now"}
               onAction={handleRegister}
               actionDisabled={isRegistered(event.id)}
             />

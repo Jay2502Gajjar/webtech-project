@@ -1,34 +1,56 @@
-import { Link } from "react-router-dom";
-import { useContext } from "react";
-import { ThemeContext } from "../context/ThemeContext";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 import "./Navbar.css";
 
-// Navbar component - navigation links, theme toggle, and logout
 function Navbar({ onLogout }) {
-  const { theme, toggleTheme } = useContext(ThemeContext);
+  const navigate = useNavigate();
+  const [userName, setUserName] = useState("");
+
+  useEffect(() => {
+    try {
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (user && user.name) {
+        setUserName(user.name);
+      }
+    } catch {
+      setUserName("");
+    }
+  }, []);
+
+  function handleLogoutClick() {
+    if (onLogout) {
+      onLogout();
+    }
+    navigate("/login");
+  }
 
   return (
-    <nav className="navbar">
-      <h1 className="navbar-title">🎓 CampusConnect</h1>
-      <ul className="navbar-links">
-        <li><Link to="/dashboard">Dashboard</Link></li>
-        <li><Link to="/events">Events</Link></li>
-        <li><Link to="/clubs">Clubs</Link></li>
-        <li><Link to="/my-activities">My Activities</Link></li>
-        <li><Link to="/admin">Admin</Link></li>
-        <li><Link to="/profile">Profile</Link></li>
-      </ul>
-      <div className="navbar-actions">
-        {/* Theme toggle button */}
-        <button className="theme-toggle-btn" onClick={toggleTheme} title="Toggle theme">
-          {theme === "light" ? "🌙" : "☀️"}
-        </button>
-        {/* Logout button */}
-        <Link to="/" className="logout-btn" onClick={onLogout}>
-          Logout
-        </Link>
-      </div>
-    </nav>
+    <header className="navbar-header">
+      <nav className="navbar">
+        <div className="navbar-brand">
+          <Link to="/dashboard" className="brand-link">
+            <span className="brand-name">CampusConnect</span>
+            <span className="brand-tag">Event Portal</span>
+          </Link>
+        </div>
+
+        <ul className="navbar-links">
+          <li><Link to="/dashboard">Dashboard</Link></li>
+          <li><Link to="/events">Events</Link></li>
+          <li><Link to="/clubs">Clubs</Link></li>
+          <li><Link to="/my-activities">My Activities</Link></li>
+          <li><Link to="/admin">Admin</Link></li>
+          <li><Link to="/profile">Profile</Link></li>
+        </ul>
+
+        <div className="navbar-actions">
+          {userName && <span className="nav-user">{userName}</span>}
+          <button type="button" className="logout-btn" onClick={handleLogoutClick}>
+            Logout
+          </button>
+        </div>
+      </nav>
+    </header>
   );
 }
 

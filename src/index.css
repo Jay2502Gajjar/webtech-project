@@ -1,215 +1,134 @@
-/* ==============================
-   CampusConnect - Global Styles
-   Full visual design with gradients,
-   colors, and modern aesthetics
-   ============================== */
-
-/* Import Google Fonts */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
-
-/* Reset */
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
+:root {
+  --primary: #1e40af;
+  --primary-hover: #1d4ed8;
+  --primary-light: #eff6ff;
+  --text-main: #0f172a;
+  --text-muted: #64748b;
+  --border-color: #cbd5e1;
+  --card-border: #e2e8f0;
+  --bg-page: #f8fafc;
+  --bg-card: #ffffff;
 }
 
-/* Page background with subtle gradient */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
 body {
-  font-family: 'Inter', Arial, sans-serif;
-  background: linear-gradient(135deg, #f0f4ff 0%, #faf5ff 50%, #fef2f2 100%);
-  color: #1e293b;
-  line-height: 1.6;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  background-color: var(--bg-page);
+  color: var(--text-main);
+  line-height: 1.5;
   min-height: 100vh;
 }
 
-/* Main page container */
 .page-container {
-  max-width: 1100px;
+  max-width: 1080px;
   margin: 0 auto;
-  padding: 32px 24px 60px;
+  padding: 24px 16px 48px;
 }
-
-/* ==============================
-   Welcome Banner (Dashboard)
-   ============================== */
-
-.welcome-banner {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6, #a855f7);
-  color: white;
-  padding: 44px 36px;
-  border-radius: 16px;
-  margin-bottom: 28px;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 8px 30px rgba(99, 102, 241, 0.3);
-}
-
-/* Decorative circles on the banner */
-.welcome-banner::before {
-  content: "";
-  position: absolute;
-  top: -40px;
-  right: -40px;
-  width: 160px;
-  height: 160px;
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 50%;
-}
-
-.welcome-banner::after {
-  content: "";
-  position: absolute;
-  bottom: -30px;
-  right: 80px;
-  width: 100px;
-  height: 100px;
-  background: rgba(255, 255, 255, 0.08);
-  border-radius: 50%;
-}
-
-.welcome-banner h2 {
-  font-size: 1.75rem;
-  font-weight: 800;
-  margin-bottom: 8px;
-  color: white;
-}
-
-.welcome-banner p {
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 1rem;
-  font-weight: 400;
-}
-
-/* ==============================
-   Page Headers
-   ============================== */
 
 .page-header {
-  margin-bottom: 24px;
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid var(--card-border);
 }
 
 .page-header h2 {
-  font-size: 1.6rem;
-  font-weight: 800;
-  color: #1e293b;
-  display: flex;
-  align-items: center;
-  gap: 10px;
+  font-size: 1.5rem;
+  color: #1e3a8a;
+  font-weight: 700;
 }
 
 .page-header p {
-  color: #64748b;
+  color: var(--text-muted);
   font-size: 0.95rem;
-  margin-top: 4px;
+  margin-top: 2px;
 }
 
-/* ==============================
-   Dashboard Stats
-   ============================== */
+.welcome-banner {
+  background: #1e40af;
+  color: #ffffff;
+  padding: 24px 28px;
+  border-radius: 8px;
+  margin-bottom: 24px;
+}
+
+.welcome-banner h2 {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+}
+
+.welcome-banner p {
+  font-size: 0.95rem;
+  color: #dbeafe;
+}
 
 .stats-section {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-  margin: 28px 0;
+  gap: 16px;
+  margin-bottom: 24px;
 }
 
-/* Each stat card gets a unique gradient */
 .stat-card {
-  padding: 28px 22px;
-  border-radius: 14px;
+  background: var(--bg-card);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 20px;
   text-align: center;
-  color: white;
-  position: relative;
-  overflow: hidden;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-}
-
-.stat-card::after {
-  content: "";
-  position: absolute;
-  top: -20px;
-  right: -20px;
-  width: 80px;
-  height: 80px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 50%;
-}
-
-.stat-card:nth-child(1) {
-  background: linear-gradient(135deg, #6366f1, #818cf8);
-}
-
-.stat-card:nth-child(2) {
-  background: linear-gradient(135deg, #ec4899, #f472b6);
-}
-
-.stat-card:nth-child(3) {
-  background: linear-gradient(135deg, #f59e0b, #fbbf24);
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
 }
 
 .stat-card h3 {
-  font-size: 2.4rem;
-  font-weight: 800;
+  font-size: 2rem;
+  font-weight: 700;
+  color: #1e40af;
   margin-bottom: 4px;
-  color: white;
 }
 
 .stat-card p {
   font-size: 0.88rem;
+  color: var(--text-muted);
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.9);
 }
 
-/* ==============================
-   Section Boxes
-   ============================== */
-
 .section-box {
-  background-color: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: 14px;
-  padding: 24px;
-  margin-bottom: 22px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
+  background: var(--bg-card);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 20px 24px;
+  margin-bottom: 24px;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
 .section-box h3 {
-  color: #1e293b;
-  margin-bottom: 16px;
-  font-size: 1.1rem;
-  font-weight: 700;
+  font-size: 1.15rem;
+  color: #1e3a8a;
+  margin-bottom: 14px;
+  font-weight: 600;
+  border-bottom: 1px solid #f1f5f9;
+  padding-bottom: 8px;
 }
 
-/* ==============================
-   Simple Lists
-   ============================== */
-
 .simple-list {
-  list-style: none;
-  padding: 0;
+  list-style-type: disc;
+  padding-left: 20px;
 }
 
 .simple-list li {
-  padding: 12px 14px;
-  border-bottom: 1px solid #f1f5f9;
-  font-size: 0.93rem;
-  border-radius: 8px;
-  transition: background-color 0.15s;
+  padding: 8px 0;
+  font-size: 0.92rem;
+  color: #334155;
+  border-bottom: 1px solid #f8fafc;
 }
 
 .simple-list li:last-child {
   border-bottom: none;
 }
-
-.simple-list li:hover {
-  background-color: #f8fafc;
-}
-
-/* ==============================
-   Events Grid
-   ============================== */
 
 .events-grid {
   display: grid;
@@ -217,631 +136,253 @@ body {
   gap: 18px;
 }
 
-/* ==============================
-   Club Cards
-   ============================== */
-
 .club-card {
-  background: #ffffff;
-  border: 1px solid rgba(0, 0, 0, 0.06);
-  border-radius: 14px;
-  padding: 24px;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.04);
-  transition: transform 0.2s, box-shadow 0.2s;
-  position: relative;
-  overflow: hidden;
-}
-
-.club-card::before {
-  content: "";
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 4px;
-  background: linear-gradient(90deg, #6366f1, #a855f7);
-}
-
-.club-card:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+  background: var(--bg-card);
+  border: 1px solid var(--card-border);
+  border-radius: 8px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
 }
 
 .club-card h3 {
-  color: #1e293b;
+  font-size: 1.15rem;
+  color: #1e3a8a;
   margin-bottom: 8px;
-  font-weight: 700;
-  font-size: 1.05rem;
 }
 
 .club-card p {
-  color: #64748b;
-  margin-bottom: 16px;
   font-size: 0.9rem;
-  line-height: 1.55;
+  color: #475569;
+  margin-bottom: 16px;
+  line-height: 1.45;
 }
-
-/* ==============================
-   Search and Filter
-   ============================== */
 
 .controls {
   display: flex;
   gap: 12px;
-  margin-bottom: 22px;
+  margin-bottom: 20px;
   flex-wrap: wrap;
 }
 
 .search-input {
   flex: 1;
-  min-width: 200px;
-  padding: 12px 16px;
-  border: 2px solid #e2e8f0;
-  border-radius: 10px;
-  font-size: 0.93rem;
-  font-family: 'Inter', Arial, sans-serif;
+  min-width: 240px;
+  padding: 9px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 0.92rem;
   background-color: #ffffff;
-  transition: border-color 0.2s, box-shadow 0.2s;
 }
 
-.search-input:focus {
+.search-input:focus,
+.filter-select:focus,
+.admin-form input:focus,
+.admin-form select:focus,
+.admin-form textarea:focus {
   outline: none;
-  border-color: #6366f1;
-  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+  border-color: #2563eb;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.2);
 }
 
 .filter-select {
-  padding: 12px 16px;
-  border: 2px solid #e2e8f0;
-  border-radius: 10px;
-  font-size: 0.93rem;
-  font-family: 'Inter', Arial, sans-serif;
+  padding: 9px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 0.92rem;
   background-color: #ffffff;
+  min-width: 140px;
+}
+
+.event-card-btn {
+  background-color: #2563eb;
+  color: #ffffff;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 6px;
+  font-size: 0.88rem;
+  font-weight: 500;
   cursor: pointer;
-  transition: border-color 0.2s;
+  transition: background-color 0.15s ease;
 }
 
-.filter-select:focus {
-  outline: none;
-  border-color: #6366f1;
-  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+.event-card-btn:hover {
+  background-color: #1d4ed8;
 }
 
-/* ==============================
-   Activity List
-   ============================== */
+.disabled-btn {
+  background-color: #94a3b8 !important;
+  cursor: not-allowed;
+}
+
+.cancel-btn,
+.delete-btn {
+  background-color: #dc2626;
+  color: #ffffff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  cursor: pointer;
+}
+
+.cancel-btn:hover,
+.delete-btn:hover {
+  background-color: #b91c1c;
+}
+
+.edit-btn {
+  background-color: #0284c7;
+  color: #ffffff;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
+  font-size: 0.82rem;
+  cursor: pointer;
+  margin-right: 6px;
+}
+
+.edit-btn:hover {
+  background-color: #0369a1;
+}
+
+.admin-form {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-width: 600px;
+}
+
+.admin-form label {
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: #334155;
+  margin-bottom: -4px;
+}
+
+.admin-form input,
+.admin-form select,
+.admin-form textarea {
+  padding: 9px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  font-size: 0.92rem;
+  font-family: inherit;
+}
+
+.form-buttons {
+  display: flex;
+  gap: 10px;
+  margin-top: 6px;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 0.9rem;
+}
+
+.admin-table th,
+.admin-table td {
+  padding: 10px 12px;
+  border: 1px solid var(--card-border);
+  text-align: left;
+}
+
+.admin-table th {
+  background-color: #f1f5f9;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.admin-table tr:hover {
+  background-color: #f8fafc;
+}
 
 .activity-list {
   list-style: none;
-  padding: 0;
 }
 
 .activity-item {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 16px;
-  margin-bottom: 8px;
-  background-color: #f8fafc;
-  border-radius: 10px;
-  border: 1px solid #f1f5f9;
-  gap: 12px;
-  transition: background-color 0.15s;
-}
-
-.activity-item:hover {
-  background-color: #f1f5f9;
-}
-
-.activity-detail {
-  color: #64748b;
-  font-size: 0.85rem;
-}
-
-/* ==============================
-   Buttons
-   ============================== */
-
-.event-card-btn {
-  background: linear-gradient(135deg, #6366f1, #8b5cf6);
-  color: white;
-  border: none;
-  padding: 10px 22px;
-  border-radius: 9px;
-  cursor: pointer;
-  font-size: 0.88rem;
-  font-weight: 600;
-  font-family: 'Inter', Arial, sans-serif;
-  transition: transform 0.15s, box-shadow 0.15s;
-  box-shadow: 0 2px 8px rgba(99, 102, 241, 0.3);
-}
-
-.event-card-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(99, 102, 241, 0.4);
-}
-
-.event-card-btn.disabled-btn {
-  background: #e2e8f0;
-  color: #94a3b8;
-  cursor: not-allowed;
-  box-shadow: none;
-  transform: none;
-}
-
-.cancel-btn {
-  background: linear-gradient(135deg, #ef4444, #f87171);
-  color: white;
-  border: none;
-  padding: 8px 18px;
-  border-radius: 9px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 600;
-  font-family: 'Inter', Arial, sans-serif;
-  transition: transform 0.15s, box-shadow 0.15s;
-  box-shadow: 0 2px 8px rgba(239, 68, 68, 0.25);
-}
-
-.cancel-btn:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(239, 68, 68, 0.35);
-}
-
-.edit-btn {
-  background: linear-gradient(135deg, #f59e0b, #fbbf24);
-  color: white;
-  border: none;
-  padding: 7px 14px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 600;
-  font-family: 'Inter', Arial, sans-serif;
-  margin-right: 6px;
-  transition: transform 0.15s;
-}
-
-.edit-btn:hover {
-  transform: translateY(-1px);
-}
-
-.delete-btn {
-  background: linear-gradient(135deg, #ef4444, #f87171);
-  color: white;
-  border: none;
-  padding: 7px 14px;
-  border-radius: 8px;
-  cursor: pointer;
-  font-size: 0.85rem;
-  font-weight: 600;
-  font-family: 'Inter', Arial, sans-serif;
-  transition: transform 0.15s;
-}
-
-.delete-btn:hover {
-  transform: translateY(-1px);
-}
-
-/* ==============================
-   Category Badges
-   ============================== */
-
-.category-badge {
-  display: inline-block;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.72rem;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-}
-
-.badge-technical {
-  background: linear-gradient(135deg, #dbeafe, #e0e7ff);
-  color: #4338ca;
-}
-
-.badge-cultural {
-  background: linear-gradient(135deg, #fce7f3, #fdf2f8);
-  color: #be185d;
-}
-
-.badge-sports {
-  background: linear-gradient(135deg, #d1fae5, #ecfdf5);
-  color: #065f46;
-}
-
-.badge-workshop {
-  background: linear-gradient(135deg, #fef3c7, #fffbeb);
-  color: #92400e;
-}
-
-/* ==============================
-   Admin Form
-   ============================== */
-
-.admin-form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  max-width: 520px;
-}
-
-.admin-form label {
-  font-weight: 600;
-  font-size: 0.88rem;
-  color: #374151;
-  margin-top: 4px;
-}
-
-.admin-form input,
-.admin-form select,
-.admin-form textarea {
-  padding: 11px 14px;
-  border: 2px solid #e2e8f0;
-  border-radius: 10px;
-  font-size: 0.93rem;
-  font-family: 'Inter', Arial, sans-serif;
-  background-color: #ffffff;
-  transition: border-color 0.2s, box-shadow 0.2s;
-}
-
-.admin-form input:focus,
-.admin-form select:focus,
-.admin-form textarea:focus {
-  outline: none;
-  border-color: #6366f1;
-  box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
-}
-
-.form-buttons {
-  display: flex;
-  gap: 10px;
-  margin-top: 10px;
-}
-
-/* ==============================
-   Admin Table
-   ============================== */
-
-.admin-table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.9rem;
-  border-radius: 10px;
-  overflow: hidden;
-}
-
-.admin-table th {
-  background: linear-gradient(135deg, #6366f1, #818cf8);
-  color: white;
-  font-weight: 600;
-  font-size: 0.82rem;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  padding: 14px 16px;
-  text-align: left;
-}
-
-.admin-table td {
-  padding: 13px 16px;
-  text-align: left;
+  padding: 12px 0;
   border-bottom: 1px solid #f1f5f9;
 }
 
-.admin-table tr:hover td {
-  background-color: #f8fafc;
+.activity-item:last-child {
+  border-bottom: none;
 }
 
-/* ==============================
-   Profile Section
-   ============================== */
+.activity-detail {
+  color: var(--text-muted);
+  font-size: 0.88rem;
+}
 
 .profile-section {
-  max-width: 520px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 16px;
 }
 
 .profile-avatar {
-  width: 72px;
-  height: 72px;
+  width: 64px;
+  height: 64px;
+  background-color: #1e40af;
+  color: #ffffff;
   border-radius: 50%;
-  background: linear-gradient(135deg, #6366f1, #a855f7);
-  color: white;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1.4rem;
-  font-weight: 800;
-  margin-bottom: 20px;
-  box-shadow: 0 4px 15px rgba(99, 102, 241, 0.3);
+  font-weight: 700;
 }
 
 .profile-view p {
-  padding: 12px 0;
+  margin-bottom: 10px;
   font-size: 0.95rem;
-  border-bottom: 1px solid #f1f5f9;
-}
-
-.profile-view button {
-  margin-top: 18px;
 }
 
 .profile-message {
-  background: linear-gradient(135deg, #ecfdf5, #d1fae5);
-  border: 1px solid #a7f3d0;
+  padding: 8px 12px;
+  background-color: #ecfdf5;
   color: #065f46;
-  padding: 12px 16px;
-  border-radius: 10px;
-  margin-bottom: 16px;
-  font-size: 0.9rem;
-  font-weight: 600;
+  border: 1px solid #a7f3d0;
+  border-radius: 6px;
+  font-size: 0.88rem;
 }
-
-/* ==============================
-   Empty State
-   ============================== */
 
 .empty-state {
+  padding: 24px;
   text-align: center;
-  padding: 40px 20px;
-  color: #94a3b8;
+  color: var(--text-muted);
+  font-style: italic;
+  font-size: 0.92rem;
 }
-
-.empty-state p {
-  font-size: 0.95rem;
-  color: #94a3b8;
-}
-
-/* ==============================
-   Footer
-   ============================== */
 
 .footer {
   text-align: center;
-  padding: 24px;
-  color: #94a3b8;
+  margin-top: 36px;
+  padding-top: 16px;
+  border-top: 1px solid var(--card-border);
   font-size: 0.82rem;
-  border-top: 1px solid rgba(0, 0, 0, 0.06);
-  margin-top: 48px;
+  color: var(--text-muted);
 }
-
-/* ==============================
-   Responsive Design
-   ============================== */
 
 @media (max-width: 768px) {
   .stats-section {
     grid-template-columns: 1fr;
   }
-
-  .events-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .admin-table {
-    font-size: 0.8rem;
-  }
-
-  .admin-table th,
-  .admin-table td {
-    padding: 10px;
-  }
-
-  .activity-item {
+  .controls {
     flex-direction: column;
-    align-items: flex-start;
   }
-
-  .welcome-banner {
-    padding: 30px 22px;
+  .admin-table {
+    display: block;
+    overflow-x: auto;
   }
-
-  .welcome-banner h2 {
-    font-size: 1.4rem;
-  }
-}
-
-/* ==========================================
-   DARK THEME
-   Applied when body has class "dark"
-   Uses body.dark to override light styles
-   ========================================== */
-
-/* Dark background for the whole page */
-body.dark {
-  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 50%, #0f172a 100%);
-  color: #e2e8f0;
-}
-
-/* Dark page headings */
-body.dark .page-container h2,
-body.dark .page-header h2 {
-  color: #f1f5f9;
-}
-
-body.dark .page-header p,
-body.dark .page-container > p {
-  color: #94a3b8;
-}
-
-/* Dark welcome banner */
-body.dark .welcome-banner {
-  background: linear-gradient(135deg, #4c1d95, #6d28d9, #7c3aed);
-  box-shadow: 0 8px 30px rgba(109, 40, 217, 0.3);
-}
-
-/* Dark stat cards keep their gradients but adjust shadow */
-body.dark .stat-card {
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
-}
-
-/* Dark section boxes */
-body.dark .section-box {
-  background-color: #1e293b;
-  border-color: rgba(255, 255, 255, 0.06);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
-}
-
-body.dark .section-box h3 {
-  color: #f1f5f9;
-}
-
-/* Dark list items */
-body.dark .simple-list li {
-  border-bottom-color: rgba(255, 255, 255, 0.06);
-  color: #cbd5e1;
-}
-
-body.dark .simple-list li:hover {
-  background-color: rgba(255, 255, 255, 0.04);
-}
-
-/* Dark event cards */
-body.dark .event-card {
-  background-color: #1e293b;
-  border-color: rgba(255, 255, 255, 0.06);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
-}
-
-body.dark .event-card:hover {
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
-}
-
-body.dark .event-card-name {
-  color: #f1f5f9;
-}
-
-body.dark .event-card-detail {
-  color: #94a3b8;
-}
-
-body.dark .event-card-description {
-  color: #cbd5e1;
-}
-
-/* Dark club cards */
-body.dark .club-card {
-  background-color: #1e293b;
-  border-color: rgba(255, 255, 255, 0.06);
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.2);
-}
-
-body.dark .club-card:hover {
-  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
-}
-
-body.dark .club-card h3 {
-  color: #f1f5f9;
-}
-
-body.dark .club-card p {
-  color: #94a3b8;
-}
-
-/* Dark search and filter */
-body.dark .search-input,
-body.dark .filter-select {
-  background-color: #1e293b;
-  border-color: rgba(255, 255, 255, 0.1);
-  color: #e2e8f0;
-}
-
-body.dark .search-input::placeholder {
-  color: #64748b;
-}
-
-body.dark .search-input:focus,
-body.dark .filter-select:focus {
-  border-color: #8b5cf6;
-  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);
-}
-
-/* Dark activity items */
-body.dark .activity-item {
-  background-color: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.06);
-}
-
-body.dark .activity-item:hover {
-  background-color: rgba(255, 255, 255, 0.07);
-}
-
-body.dark .activity-detail {
-  color: #94a3b8;
-}
-
-/* Dark category badges */
-body.dark .badge-technical {
-  background: rgba(99, 102, 241, 0.2);
-  color: #a5b4fc;
-}
-
-body.dark .badge-cultural {
-  background: rgba(236, 72, 153, 0.2);
-  color: #f9a8d4;
-}
-
-body.dark .badge-sports {
-  background: rgba(16, 185, 129, 0.2);
-  color: #6ee7b7;
-}
-
-body.dark .badge-workshop {
-  background: rgba(245, 158, 11, 0.2);
-  color: #fcd34d;
-}
-
-/* Dark disabled button */
-body.dark .event-card-btn.disabled-btn {
-  background: rgba(255, 255, 255, 0.08);
-  color: #64748b;
-}
-
-/* Dark admin form */
-body.dark .admin-form label {
-  color: #cbd5e1;
-}
-
-body.dark .admin-form input,
-body.dark .admin-form select,
-body.dark .admin-form textarea {
-  background-color: #1e293b;
-  border-color: rgba(255, 255, 255, 0.1);
-  color: #e2e8f0;
-}
-
-body.dark .admin-form input:focus,
-body.dark .admin-form select:focus,
-body.dark .admin-form textarea:focus {
-  border-color: #8b5cf6;
-  box-shadow: 0 0 0 4px rgba(139, 92, 246, 0.15);
-}
-
-/* Dark admin table */
-body.dark .admin-table td {
-  border-bottom-color: rgba(255, 255, 255, 0.06);
-  color: #cbd5e1;
-}
-
-body.dark .admin-table tr:hover td {
-  background-color: rgba(255, 255, 255, 0.04);
-}
-
-/* Dark profile */
-body.dark .profile-view p {
-  border-bottom-color: rgba(255, 255, 255, 0.06);
-  color: #cbd5e1;
-}
-
-body.dark .profile-message {
-  background: rgba(16, 185, 129, 0.1);
-  border-color: rgba(16, 185, 129, 0.2);
-  color: #6ee7b7;
-}
-
-/* Dark footer */
-body.dark .footer {
-  color: #64748b;
-  border-top-color: rgba(255, 255, 255, 0.06);
 }

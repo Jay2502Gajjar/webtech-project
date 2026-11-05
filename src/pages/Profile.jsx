@@ -1,8 +1,6 @@
 import { useState, useEffect } from "react";
 
-// Profile page - display and edit student information
 function Profile() {
-  // Default profile data
   const [profile, setProfile] = useState({
     name: "",
     email: "",
@@ -10,110 +8,97 @@ function Profile() {
   });
 
   const [isEditing, setIsEditing] = useState(false);
-  const [message, setMessage] = useState("");
+  const [statusMessage, setStatusMessage] = useState("");
 
-  // Load profile from localStorage when component mounts
   useEffect(() => {
-    const savedProfile = JSON.parse(localStorage.getItem("profile"));
-    if (savedProfile) {
-      setProfile(savedProfile);
+    const saved = JSON.parse(localStorage.getItem("profile"));
+    if (saved) {
+      setProfile(saved);
+    } else {
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (user && user.name) {
+        setProfile({
+          name: user.name,
+          email: `${user.studentId ? user.studentId.toLowerCase() : "student"}@college.edu`,
+          department: "Computer Science & Engineering",
+        });
+      }
     }
   }, []);
 
-  // Handle input changes
   function handleChange(e) {
     const { name, value } = e.target;
     setProfile({ ...profile, [name]: value });
   }
 
-  // Validate email using a basic regular expression
-  function isValidEmail(email) {
-    // This regex checks for: something@something.something
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email);
-  }
-
-  // Save profile to localStorage
   function handleSave(e) {
     e.preventDefault();
 
-    // Validate fields
-    if (!profile.name || !profile.email || !profile.department) {
-      setMessage("Please fill in all fields.");
+    if (!profile.name.trim() || !profile.email.trim() || !profile.department.trim()) {
+      setStatusMessage("Please fill in all profile fields.");
       return;
     }
 
-    // Validate email format
-    if (!isValidEmail(profile.email)) {
-      setMessage("Please enter a valid email address.");
-      return;
-    }
-
-    // Save to localStorage
     localStorage.setItem("profile", JSON.stringify(profile));
     setIsEditing(false);
-    setMessage("Profile saved successfully! ✅");
+    setStatusMessage("Profile details updated successfully.");
   }
 
-  // Get initials for the avatar circle
   function getInitials(name) {
-    if (!name) return "?";
-    const parts = name.split(" ");
+    if (!name) return "ST";
+    const parts = name.trim().split(" ");
     if (parts.length >= 2) {
-      return parts[0][0] + parts[1][0];
+      return (parts[0][0] + parts[1][0]).toUpperCase();
     }
-    return parts[0][0];
+    return name.slice(0, 2).toUpperCase();
   }
 
   return (
     <div className="page-container">
       <div className="page-header">
-        <h2>👤 Student Profile</h2>
-        <p>View and manage your personal information</p>
+        <h2>Student Profile</h2>
+        <p>Manage your student record and departmental communication details</p>
       </div>
 
       <section className="section-box profile-section">
-        {/* Avatar circle with initials */}
         <div className="profile-avatar">
           {getInitials(profile.name)}
         </div>
 
-        {/* Show message if any */}
-        {message && <p className="profile-message">{message}</p>}
+        {statusMessage && <div className="profile-message">{statusMessage}</div>}
 
         {isEditing ? (
-          // Edit mode - show form
-          <form onSubmit={handleSave} className="admin-form">
-            <label htmlFor="name">Full Name:</label>
+          <form onSubmit={handleSave} className="admin-form" style={{ width: "100%" }}>
+            <label htmlFor="name">Full Name</label>
             <input
               type="text"
               id="name"
               name="name"
               value={profile.name}
               onChange={handleChange}
-              placeholder="Enter your full name"
+              placeholder="Full Name"
               required
             />
 
-            <label htmlFor="email">Email:</label>
+            <label htmlFor="email">College Email ID</label>
             <input
               type="email"
               id="email"
               name="email"
               value={profile.email}
               onChange={handleChange}
-              placeholder="Enter your email"
+              placeholder="student@college.edu"
               required
             />
 
-            <label htmlFor="department">Department:</label>
+            <label htmlFor="department">Academic Department</label>
             <input
               type="text"
               id="department"
               name="department"
               value={profile.department}
               onChange={handleChange}
-              placeholder="Enter your department"
+              placeholder="e.g. Information Technology"
               required
             />
 
@@ -129,19 +114,21 @@ function Profile() {
             </div>
           </form>
         ) : (
-          // View mode - show profile details
-          <div className="profile-view">
-            <p><strong>Name:</strong> {profile.name || "Not set"}</p>
-            <p><strong>Email:</strong> {profile.email || "Not set"}</p>
-            <p><strong>Department:</strong> {profile.department || "Not set"}</p>
+          <div className="profile-view" style={{ width: "100%" }}>
+            <p><strong>Student Name:</strong> {profile.name || "Not specified"}</p>
+            <p><strong>Email Address:</strong> {profile.email || "Not specified"}</p>
+            <p><strong>Department:</strong> {profile.department || "Not specified"}</p>
+
             <button
+              type="button"
               className="event-card-btn"
               onClick={() => {
                 setIsEditing(true);
-                setMessage("");
+                setStatusMessage("");
               }}
+              style={{ marginTop: "12px" }}
             >
-              Edit Profile
+              Edit Profile Information
             </button>
           </div>
         )}

@@ -1,11 +1,9 @@
 import { useState, useEffect } from "react";
 
-// Admin page - add, edit and delete events
 function Admin() {
   const [events, setEvents] = useState([]);
-  const [editingEvent, setEditingEvent] = useState(null); // Track which event is being edited
+  const [editingEvent, setEditingEvent] = useState(null);
 
-  // Form state for adding/editing an event
   const [formData, setFormData] = useState({
     name: "",
     date: "",
@@ -14,75 +12,65 @@ function Admin() {
     description: "",
   });
 
-  // Load events from localStorage
   useEffect(() => {
     const savedEvents = JSON.parse(localStorage.getItem("events")) || [];
     setEvents(savedEvents);
   }, []);
 
-  // Handle form input changes using a single function
   function handleChange(e) {
-    const { name, value } = e.target; // Destructuring to get input name and value
+    const { name, value } = e.target;
     setFormData({ ...formData, [name]: value });
   }
 
-  // Handle form submission (add or update event)
   function handleSubmit(e) {
-    e.preventDefault(); // Prevent page from refreshing
+    e.preventDefault();
 
-    // Basic validation - check all fields are filled
-    if (!formData.name || !formData.date || !formData.venue || !formData.category || !formData.description) {
-      alert("Please fill in all fields.");
+    if (!formData.name.trim() || !formData.date || !formData.venue.trim() || !formData.category || !formData.description.trim()) {
+      alert("Please fill in all the required event details.");
       return;
     }
 
-    let updatedEvents;
+    let updatedList;
 
     if (editingEvent) {
-      // Update existing event
-      updatedEvents = events.map((event) => {
-        if (event.id === editingEvent.id) {
-          return { ...event, ...formData };
+      updatedList = events.map((item) => {
+        if (item.id === editingEvent.id) {
+          return { ...item, ...formData };
         }
-        return event;
+        return item;
       });
       setEditingEvent(null);
       alert("Event updated successfully!");
     } else {
-      // Create new event with a unique id using Date.now()
       const newEvent = {
         id: Date.now(),
         ...formData,
       };
-      updatedEvents = [...events, newEvent];
-      alert("Event added successfully!");
+      updatedList = [...events, newEvent];
+      alert("New event created successfully!");
     }
 
-    setEvents(updatedEvents);
-    localStorage.setItem("events", JSON.stringify(updatedEvents));
+    setEvents(updatedList);
+    localStorage.setItem("events", JSON.stringify(updatedList));
 
-    // Clear the form
     setFormData({ name: "", date: "", venue: "", category: "", description: "" });
   }
 
-  // Delete an event
   function handleDelete(eventId) {
-    if (!confirm("Are you sure you want to delete this event?")) {
+    if (!confirm("Are you sure you want to delete this event from the portal?")) {
       return;
     }
-    const updatedEvents = events.filter((event) => event.id !== eventId);
-    setEvents(updatedEvents);
-    localStorage.setItem("events", JSON.stringify(updatedEvents));
+    const updated = events.filter((ev) => ev.id !== eventId);
+    setEvents(updated);
+    localStorage.setItem("events", JSON.stringify(updated));
 
-    // Also remove from registered events if someone registered for it
     const savedRegistered = JSON.parse(localStorage.getItem("registeredEvents")) || [];
-    const updatedRegistered = savedRegistered.filter((event) => event.id !== eventId);
-    localStorage.setItem("registeredEvents", JSON.stringify(updatedRegistered));
+    const updatedReg = savedRegistered.filter((ev) => ev.id !== eventId);
+    localStorage.setItem("registeredEvents", JSON.stringify(updatedReg));
 
-    alert("Event deleted.");
+    alert("Event deleted successfully.");
   }
 
-  // Start editing an event - fill the form with event data
   function handleEdit(event) {
     setEditingEvent(event);
     setFormData({
@@ -92,11 +80,9 @@ function Admin() {
       category: event.category,
       description: event.description,
     });
-    // Scroll to top so user can see the form
-    window.scrollTo(0, 0);
+    window.scrollTo({ top: 0, behavior: "smooth" });
   }
 
-  // Cancel editing
   function handleCancelEdit() {
     setEditingEvent(null);
     setFormData({ name: "", date: "", venue: "", category: "", description: "" });
@@ -105,27 +91,26 @@ function Admin() {
   return (
     <div className="page-container">
       <div className="page-header">
-        <h2>⚙️ Admin Panel</h2>
-        <p>Manage events — add, edit or delete</p>
+        <h2>Admin Management Panel</h2>
+        <p>Create, update, and manage official campus events and activities</p>
       </div>
 
-      {/* Add/Edit Event Form */}
       <section className="section-box">
-        <h3>{editingEvent ? "✏️ Edit Event" : "➕ Add New Event"}</h3>
+        <h3>{editingEvent ? "Update Existing Event" : "Create New College Event"}</h3>
 
         <form onSubmit={handleSubmit} className="admin-form">
-          <label htmlFor="name">Event Name:</label>
+          <label htmlFor="name">Event Name</label>
           <input
             type="text"
             id="name"
             name="name"
             value={formData.name}
             onChange={handleChange}
-            placeholder="Enter event name"
+            placeholder="e.g. National Hackathon 2026"
             required
           />
 
-          <label htmlFor="date">Date:</label>
+          <label htmlFor="date">Scheduled Date</label>
           <input
             type="date"
             id="date"
@@ -135,18 +120,18 @@ function Admin() {
             required
           />
 
-          <label htmlFor="venue">Venue:</label>
+          <label htmlFor="venue">Campus Venue</label>
           <input
             type="text"
             id="venue"
             name="venue"
             value={formData.venue}
             onChange={handleChange}
-            placeholder="Enter venue"
+            placeholder="e.g. Auditorium / Computer Lab 3"
             required
           />
 
-          <label htmlFor="category">Category:</label>
+          <label htmlFor="category">Category</label>
           <select
             id="category"
             name="category"
@@ -154,67 +139,66 @@ function Admin() {
             onChange={handleChange}
             required
           >
-            <option value="">Select Category</option>
+            <option value="">-- Choose Category --</option>
             <option value="Technical">Technical</option>
             <option value="Cultural">Cultural</option>
             <option value="Sports">Sports</option>
             <option value="Workshop">Workshop</option>
           </select>
 
-          <label htmlFor="description">Description:</label>
+          <label htmlFor="description">Event Description</label>
           <textarea
             id="description"
             name="description"
             value={formData.description}
             onChange={handleChange}
-            placeholder="Enter event description"
+            placeholder="Brief description about the event, rules, or schedule"
             rows="3"
             required
           />
 
           <div className="form-buttons">
             <button type="submit" className="event-card-btn">
-              {editingEvent ? "Update Event" : "Add Event"}
+              {editingEvent ? "Save Changes" : "Create Event"}
             </button>
             {editingEvent && (
               <button type="button" className="cancel-btn" onClick={handleCancelEdit}>
-                Cancel Edit
+                Cancel
               </button>
             )}
           </div>
         </form>
       </section>
 
-      {/* List of Existing Events */}
       <section className="section-box">
-        <h3>📋 Existing Events ({events.length})</h3>
+        <h3>Current Events List ({events.length})</h3>
         {events.length === 0 ? (
           <div className="empty-state">
-            <p>No events added yet.</p>
+            <p>No events found in the database. Use the form above to add an event.</p>
           </div>
         ) : (
           <table className="admin-table">
             <thead>
               <tr>
-                <th>Name</th>
+                <th>Event Name</th>
                 <th>Date</th>
                 <th>Venue</th>
                 <th>Category</th>
-                <th>Actions</th>
+                <th style={{ width: "140px" }}>Actions</th>
               </tr>
             </thead>
             <tbody>
-              {events.map((event) => (
-                <tr key={event.id}>
-                  <td>{event.name}</td>
-                  <td>{event.date}</td>
-                  <td>{event.venue}</td>
-                  <td>{event.category}</td>
+              {events.map((ev) => (
+                <tr key={ev.id}>
+                  <td><strong>{ev.name}</strong></td>
+                  <td>{ev.date}</td>
+                  <td>{ev.venue}</td>
+                  <td>{ev.category}</td>
                   <td>
-                    <button className="edit-btn" onClick={() => handleEdit(event)}>
+                    <button type="button" className="edit-btn" onClick={() => handleEdit(ev)}>
                       Edit
                     </button>
-                    <button className="delete-btn" onClick={() => handleDelete(event.id)}>
+                    <button type="button" className="delete-btn" onClick={() => handleDelete(ev.id)}>
                       Delete
                     </button>
                   </td>

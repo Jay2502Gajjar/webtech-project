@@ -1,6 +1,3 @@
-// Default events data for CampusConnect
-// This array contains sample college events that are loaded when the app starts
-
 const defaultEvents = [
   {
     id: 1,
@@ -52,7 +49,6 @@ const defaultEvents = [
   }
 ];
 
-// Default clubs data
 const defaultClubs = [
   {
     id: 1,

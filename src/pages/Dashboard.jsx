@@ -1,14 +1,22 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 
-// Dashboard page - shows welcome message, stats and upcoming events
 function Dashboard() {
+  const [studentName, setStudentName] = useState("Student");
   const [events, setEvents] = useState([]);
   const [registeredEvents, setRegisteredEvents] = useState([]);
   const [joinedClubs, setJoinedClubs] = useState([]);
 
-  // Load data from localStorage when the page loads
   useEffect(() => {
-    // JSON.parse() converts a JSON string back into a JavaScript array/object
+    try {
+      const user = JSON.parse(localStorage.getItem("user"));
+      if (user && user.name) {
+        setStudentName(user.name);
+      }
+    } catch {
+      setStudentName("Student");
+    }
+
     const savedEvents = JSON.parse(localStorage.getItem("events")) || [];
     const savedRegistered = JSON.parse(localStorage.getItem("registeredEvents")) || [];
     const savedClubs = JSON.parse(localStorage.getItem("joinedClubs")) || [];
@@ -16,74 +24,77 @@ function Dashboard() {
     setEvents(savedEvents);
     setRegisteredEvents(savedRegistered);
     setJoinedClubs(savedClubs);
-  }, []); // Empty dependency array means this runs only once when component mounts
+  }, []);
 
-  // Get upcoming events (events with a date today or in the future)
-  const today = new Date().toISOString().split("T")[0]; // Get today's date as "YYYY-MM-DD"
-  const upcomingEvents = events.filter((event) => event.date >= today);
+  const todayStr = new Date().toISOString().split("T")[0];
+  const upcomingList = events.filter((item) => item.date >= todayStr);
 
-  // Simple announcements array
   const announcements = [
-    "📢 Registrations for Tech Fest 2026 are now open!",
-    "📢 New clubs have been added. Check the Clubs page!",
-    "📢 Submit your project reports before December 20th.",
+    "Registrations for Tech Fest 2026 are officially open.",
+    "New departmental clubs have been updated. View details in the Clubs tab.",
+    "Semester project submissions and activity confirmations are due before the end of this month.",
+    "Guest lecture on Artificial Intelligence scheduled in Seminar Hall.",
   ];
 
   return (
     <div className="page-container">
-      {/* Welcome banner */}
       <div className="welcome-banner">
-        <h2>Welcome to CampusConnect! 🎓</h2>
-        <p>Your one-stop portal for college events and student communities.</p>
+        <h2>Welcome back, {studentName}!</h2>
+        <p>CampusConnect Student Portal — Academic Year 2026</p>
       </div>
 
-      {/* Stats section using CSS Grid */}
       <section className="stats-section">
         <div className="stat-card">
           <h3>{registeredEvents.length}</h3>
-          <p>Registered Events</p>
+          <p>My Registered Events</p>
         </div>
         <div className="stat-card">
           <h3>{joinedClubs.length}</h3>
-          <p>Joined Clubs</p>
+          <p>Enrolled Clubs</p>
         </div>
         <div className="stat-card">
           <h3>{events.length}</h3>
-          <p>Total Events</p>
+          <p>Total College Events</p>
         </div>
       </section>
 
-      {/* Upcoming events section */}
       <section className="section-box">
-        <h3>📅 Upcoming Events</h3>
-        {upcomingEvents.length === 0 ? (
+        <h3>Upcoming Campus Events</h3>
+        {upcomingList.length === 0 ? (
           <div className="empty-state">
-            <p>No upcoming events.</p>
+            <p>No upcoming events scheduled right now.</p>
           </div>
         ) : (
           <ul className="simple-list">
-            {upcomingEvents.map((event) => (
-              <li key={event.id}>
-                <strong>{event.name}</strong> — {event.date} at {event.venue}
+            {upcomingList.map((ev) => (
+              <li key={ev.id}>
+                <strong>{ev.name}</strong> — {ev.date} at {ev.venue} ({ev.category})
               </li>
             ))}
           </ul>
         )}
       </section>
 
-      {/* Announcements section */}
       <section className="section-box">
-        <h3>📣 Announcements</h3>
+        <h3>Campus Notice Board</h3>
         <ul className="simple-list">
-          {announcements.map((msg, index) => (
-            <li key={index}>{msg}</li>
+          {announcements.map((note, idx) => (
+            <li key={idx}>{note}</li>
           ))}
         </ul>
       </section>
 
-      {/* Footer */}
+      <div style={{ marginTop: "16px", display: "flex", gap: "10px" }}>
+        <Link to="/events" className="event-card-btn" style={{ textDecoration: "none" }}>
+          Explore Events
+        </Link>
+        <Link to="/my-activities" className="event-card-btn" style={{ textDecoration: "none", backgroundColor: "#0284c7" }}>
+          View My Activities
+        </Link>
+      </div>
+
       <footer className="footer">
-        CampusConnect © 2026 — Built with React
+        CampusConnect — Web Technology Project
       </footer>
     </div>
   );
